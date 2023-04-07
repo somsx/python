@@ -1,0 +1,5 @@
+user_input = int(input("Enter:")) #1.2
+o = 0
+for j in range(user_input, (user_input*2)+1):
+    o = o + j
+print(f"Kilkist dominoshok:{o / 3 + user_input+1}")
