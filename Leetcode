@@ -1,0 +1,16 @@
+# def compress(chars):      #String Compression
+#     lst = []
+#     for i in chars:
+#         if i not in lst:
+#             u = chars.count(i)
+#             if u > 1:
+#
+#                 lst.append(i)
+#                 lst.extend(str(u))
+#             else:
+#                 lst.append(i)
+#
+#     return lst
+#
+# print(compress(["a","a","b","b","b","b","b","b","b","b","b","b","b","b","c"]))
+
