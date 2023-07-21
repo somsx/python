@@ -1,0 +1,85 @@
+from tkinter import *
+
+
+def eras():
+
+    can.tag_bind("<Button-1>", new_color("white"))
+
+
+def locate_xy(work):
+    global current_x, current_y
+    current_x, current_y = work.x, work.y
+
+
+def cr_line(work):
+    global current_x, current_y
+    can.create_line(current_x, current_y, work.x, work.y, fill=color, width=get_value(), capstyle=ROUND)
+    current_x, current_y = work.x, work.y
+
+
+current_x = 0
+current_y = 0
+color = "black"
+
+window = Tk()
+window.title("Paint")
+window.geometry("1050x570+150+50")
+window['bg'] = 'snow'
+window.resizable(False, False)
+
+can = Canvas(bg="white", width=920, height=900)
+can.place(x=90)
+
+value = DoubleVar()
+
+
+def get_value():
+    return round(value.get(), 2)
+
+
+def slider_change(event):
+    value_label.configure(text=get_value())
+
+
+slider = Scale(from_=0, to=100, orient="horizontal", command=slider_change, variable=value)
+slider.place(x=27, y=530)
+
+value_label = Label()
+value_label.place(x=27, y=550)
+
+slider.set(5)
+
+
+palett = Canvas(window, width=37, height=300, bd=0, background="#ffffff")
+palett.place(x=20)
+
+can.bind("<Button-1>", locate_xy)
+can.bind("<B1-Motion>", cr_line)
+
+
+def new_color(col):
+    global color
+    color = col
+
+
+def colors():
+    def create_button(c, x):
+        id = palett.create_rectangle(10, x, 30, x + 20, fill=c)
+        palett.tag_bind(id, "<Button-1>", lambda event: new_color(c))
+
+
+
+    col = ("blue", "green", "yellow","red","pink", "orange", "brown", "gray", "black")
+    x = 10
+    for c in col:
+        create_button(c, x)
+        x = x + 30
+
+colors()
+photo = PhotoImage(file="eras.png")
+eraser = Button(image=photo, command=eras)
+eraser.place(x=20, y=300, height=35, width=35)
+
+can.delete("all")
+
+mainloop()
